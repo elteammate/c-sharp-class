@@ -80,7 +80,7 @@ public class Tests
         PrintFrame2(4, 4);
         AssertOut("****\n*  *\n*  *\n****");
     }
-    
+
     [Test]
     public void TestGcd()
     {
@@ -88,6 +88,13 @@ public class Tests
         That(Gcd(10, 20), Is.EqualTo(10));
         That(Gcd(15, 20), Is.EqualTo(5));
         That(Gcd(413100, 283935), Is.EqualTo(15));
+
+        That(Gcd(-2, -3), Is.EqualTo(1));
+        That(Gcd(-10, 20), Is.EqualTo(10));
+        That(Gcd(15, -20), Is.EqualTo(5));
+        That(Gcd(-413100, -283935), Is.EqualTo(15));
+
+        Throws<ArgumentException>(() => Gcd(0, 0));
     }
 
     [Test]

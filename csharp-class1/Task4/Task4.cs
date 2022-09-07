@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace Task4
 {
@@ -73,7 +74,20 @@ namespace Task4
          */
         internal static long Gcd(long a, long b)
         {
-            throw new NotImplementedException();
+            if (a == 0 && b == 0) {
+                throw new ArgumentException("A and B cannot be zero at the same time");
+            }
+
+            a = Math.Abs(a);
+            b = Math.Abs(b);
+
+            while (b != 0) {
+                var temp = b;
+                b = a % b;
+                a = temp;
+            }
+
+            return a;
         }
 
         /*
