@@ -44,12 +44,31 @@ namespace Task5
          */
         private static BigInteger Fib(int n)
         {
-            throw new NotImplementedException();
+            if (n == 0) {
+                return 0;
+            }
+
+            var beforeLast = new BigInteger(0);
+            var last = new BigInteger(1);
+            for (var i = 1; i < n; i++) {
+                var newLast = beforeLast + last;
+                beforeLast = last;
+                last = newLast;
+            }
+
+            return last;
         }
 
         internal static void ComputeFib(string[] args)
         {
-            throw new NotImplementedException();
+            // Я знаю, что это написано не так, как в DemoInput, но я считаю, что это читаемее
+            var n = args.Length switch {
+                1 => int.Parse(args[0]),
+                0 => int.Parse(Console.ReadLine()!),
+                _ => throw new ArgumentException("Wrong number of arguments")
+            };
+
+            Console.WriteLine(Fib(n));
         }
     }
 }
