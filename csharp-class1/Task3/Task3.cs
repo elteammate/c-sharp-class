@@ -42,7 +42,7 @@ namespace Task3
                 throw new ArgumentOutOfRangeException(nameof(year), "Gregorian calendar was introduced in 1582");
             }
 
-            if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
                 return 366;
             }
 
@@ -56,7 +56,7 @@ namespace Task3
                 'З' => 'Ю',
                 'Ю' => 'В',
                 'В' => 'С',
-                _ => throw new ArgumentOutOfRangeException(nameof(c), "Invalid direction"),
+                _ => throw new ArgumentOutOfRangeException(nameof(c), "Invalid direction")
             };
         }
 
@@ -67,7 +67,7 @@ namespace Task3
                 1 => NextOrientation(orientation),
                 2 => NextOrientation(NextOrientation(orientation)),
                 -1 => NextOrientation(NextOrientation(NextOrientation(orientation))),
-                _ => throw new ArgumentOutOfRangeException(nameof(cmd), "Invalid command"),
+                _ => throw new ArgumentOutOfRangeException(nameof(cmd), "Invalid command")
             };
         }
 
@@ -78,10 +78,8 @@ namespace Task3
          * Дан символ C — исходная ориентация локатора и целые числа N1 и N2 — две посланные команды.
          * Вернуть ориентацию локатора после выполнения этих команд.
          */
-        internal static char Rotate2(char orientation, int cmd1, int cmd2)
-        {
-            return Rotate(Rotate(orientation, cmd1), cmd2);
-        }
+        internal static char Rotate2(char orientation, int cmd1, int cmd2) =>
+            Rotate(Rotate(orientation, cmd1), cmd2);
 
         /*
          * Задание 3.4. Дано целое число в диапазоне 20–69, определяющее возраст (в годах).
@@ -107,7 +105,7 @@ namespace Task3
                 4 => "сорок",
                 5 => "пятьдесят",
                 6 => "шестьдесят",
-                _ => throw new AssertionException("Impossible"),
+                _ => throw new AssertionException("Impossible")
             };
 
             var wordTwo = leastSignificantDigit switch {
@@ -121,13 +119,13 @@ namespace Task3
                 7 => "семь",
                 8 => "восемь",
                 9 => "девять",
-                _ => throw new AssertionException("Impossible"),
+                _ => throw new AssertionException("Impossible")
             };
 
             var suffix = leastSignificantDigit switch {
                 1 => "год",
                 2 or 3 or 4 => "года",
-                _ => "лет",
+                _ => "лет"
             };
 
             return wordTwo == null ? $"{wordOne} {suffix}" : $"{wordOne} {wordTwo} {suffix}";

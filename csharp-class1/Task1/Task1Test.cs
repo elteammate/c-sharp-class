@@ -1,7 +1,7 @@
-using NUnit.Framework;
 using System;
 using System.IO;
 using System.Linq;
+using NUnit.Framework;
 using static NUnit.Framework.Assert;
 using static Task1.Task1;
 
@@ -34,7 +34,7 @@ public class Tests
         AssertOut("Hello Vitaly!");
     }
 
-    private void AssertOut(String expected)
+    private void AssertOut(string expected)
     {
         That(_stringWriter.ToString().TrimEnd(Environment.NewLine.ToCharArray()), Is.EqualTo(expected));
     }
@@ -68,13 +68,13 @@ public class Tests
         runOnInputCheckLastLine("50\n50", "100", Sum);
     }
 
-    private void runOnInputCheckLastLine(string input, string expected, Action action) 
+    private void runOnInputCheckLastLine(string input, string expected, Action action)
     {
         Console.SetIn(new StringReader(input));
         action.Invoke();
         var newLineCharArray = Environment.NewLine.ToCharArray();
         That(
-            _stringWriter.ToString().Split(newLineCharArray, StringSplitOptions.RemoveEmptyEntries).Last(), 
+            _stringWriter.ToString().Split(newLineCharArray, StringSplitOptions.RemoveEmptyEntries).Last(),
             Is.EqualTo(expected)
         );
     }

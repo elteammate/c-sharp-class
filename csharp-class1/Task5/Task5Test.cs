@@ -1,13 +1,13 @@
-using NUnit.Framework;
 using System;
 using System.IO;
+using NUnit.Framework;
 using static NUnit.Framework.Assert;
 using static Task5.Task5;
 
 public class Tests
 {
-    private readonly TextReader _standartIn = Console.In;
-    private readonly TextWriter _standartOut = Console.Out;
+    private readonly TextReader _standardIn = Console.In;
+    private readonly TextWriter _standardOut = Console.Out;
     private StringWriter _stringWriter = new StringWriter();
 
     [SetUp]
@@ -21,8 +21,8 @@ public class Tests
     [TearDown]
     public void TearDown()
     {
-        Console.SetIn(_standartIn);
-        Console.SetOut(_standartOut);
+        Console.SetIn(_standardIn);
+        Console.SetOut(_standardOut);
         _stringWriter.Close();
     }
 
@@ -56,7 +56,7 @@ public class Tests
         AssertOut("267914296");
     }
 
-    private void AssertOut(String expected)
+    private void AssertOut(string expected)
     {
         That(_stringWriter.ToString().TrimEnd(Environment.NewLine.ToCharArray()), Is.EqualTo(expected));
     }

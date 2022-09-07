@@ -1,13 +1,12 @@
-using NUnit.Framework;
-using NUnit.Framework.Internal;
 using System;
 using System.IO;
+using NUnit.Framework;
 using static NUnit.Framework.Assert;
 using static Task4.Task4;
 
 public class Tests
 {
-    private readonly TextWriter _standartOut = Console.Out;
+    private readonly TextWriter _standardOut = Console.Out;
     private StringWriter _stringWriter = new StringWriter();
 
     [SetUp]
@@ -21,7 +20,7 @@ public class Tests
     [TearDown]
     public void TearDown()
     {
-        Console.SetOut(_standartOut);
+        Console.SetOut(_standardOut);
         _stringWriter.Close();
     }
 
@@ -106,7 +105,7 @@ public class Tests
         That(ExpTaylor(x, 1000), Is.EqualTo(Math.Exp(x)).Within(1e-10));
     }
 
-    private void AssertOut(String expected)
+    private void AssertOut(string expected)
     {
         That(_stringWriter.ToString().TrimEnd(Environment.NewLine.ToCharArray()), Is.EqualTo(expected));
     }

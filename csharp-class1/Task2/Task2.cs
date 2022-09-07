@@ -4,6 +4,8 @@ namespace Task2
 {
     public static class Task2
     {
+        private const double Deg2RadScale = Math.PI / 180.0;
+
         /*
          * Задание 2.0. Прочтите задания 2.1-2.4, затем посмотрите, как тестируются реализации этих функций
          * в файле `Task2/Task2Test.cs`, и добавьте по аналогии собственные тестовые случаи
@@ -37,8 +39,6 @@ namespace Task2
         private static int Max2(int a, int b) => a >= b ? a : b;
 
         internal static int Max3(int a, int b, int c) => Max2(Max2(a, b), c);
-
-        private const double Deg2RadScale = Math.PI / 180.0;
 
         /*
          * Задание 2.3. Дано значение угла α (типа Double) в градусах. Определите значение этого же угла в радианах,

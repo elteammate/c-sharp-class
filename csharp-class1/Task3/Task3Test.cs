@@ -1,5 +1,5 @@
-using NUnit.Framework;
 using System;
+using NUnit.Framework;
 using static NUnit.Framework.Assert;
 using static Task3.Task3;
 
