@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using NUnit.Framework;
 
 namespace Task3
@@ -132,10 +133,46 @@ namespace Task3
             return wordTwo == null ? $"{wordOne} {suffix}" : $"{wordOne} {wordTwo} {suffix}";
         }
 
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
-            throw new NotImplementedException(
-                "Вызовите здесь все перечисленные в классе функции, как это сделано в предыдущих заданиях");
+            if (args.Length != 1) {
+                Console.WriteLine("Usage: <program> <command>");
+                return -1;
+            }
+
+            var command = args[0];
+
+            switch (command) {
+                case "F": {
+                    var x = double.Parse(Console.ReadLine()!);
+                    Console.WriteLine("x = {0}, F(x) = {1}", x, F(x));
+                    break;
+                }
+
+                case "days": {
+                    var year = int.Parse(Console.ReadLine()!);
+                    Console.WriteLine("Year {0} has {1} days", year, NumberOfDays(year));
+                    break;
+                }
+
+                case "rotate": {
+                    var orientation = Console.ReadLine()!.First();
+                    var cmd1 = int.Parse(Console.ReadLine()!);
+                    var cmd2 = int.Parse(Console.ReadLine()!);
+                    Console.WriteLine("Transformed orientation: {0}", Rotate2(orientation, cmd1, cmd2));
+                    break;
+                }
+
+                case "age": {
+                    var age = int.Parse(Console.ReadLine()!);
+                    Console.WriteLine("Age description of age {0}: {1}", age, AgeDescription(age));
+                    break;
+                }
+
+                default: return -1;
+            }
+
+            return 0;
         }
     }
 }

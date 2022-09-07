@@ -101,6 +101,13 @@ public class Tests
     [Test]
     public void MainTest()
     {
-        Main(Array.Empty<string>());
+        That(Main(Array.Empty<string>()), Is.EqualTo(-1));
+        That(Main(new[] { "some-arg", "other-arg" }), Is.EqualTo(-1));
+        That(Main(new[] { "unknown-arg" }), Is.EqualTo(-1));
+
+        // Проверять что CLI выводит в консоль я не буду.
+        // Это не функционал API, это функционал UI, и его unit-тестирование 
+        // не только усложнит код тестов и не даст никакого прироста в качестве тестов,
+        // но и усложнит поддержку тестов в будущем.
     }
 }
