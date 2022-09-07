@@ -33,7 +33,19 @@ namespace Task3
          * делящийся на 4, за исключением тех годов, которые делятся на 100 и не делятся на 400
          * (например, годы 300, 1300 и 1900 не являются високосными, а 1200 и 2000 — являются).
          */
-        internal static int NumberOfDays(int year) => throw new NotImplementedException();
+        internal static int NumberOfDays(int year)
+        {
+            // https://en.wikipedia.org/wiki/Gregorian_calendar
+            if (year < 1582) {
+                throw new ArgumentOutOfRangeException(nameof(year), "Gregorian calendar was introduced in 1582");
+            }
+
+            if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+                return 366;
+            }
+
+            return 365;
+        }
 
         /*
          * Задание 3.3. Локатор ориентирован на одну из сторон света («С» — север, «З» — запад,

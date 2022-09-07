@@ -47,7 +47,21 @@ public class Tests
     public void NumberOfDaysTest()
     {
         That(NumberOfDays(2021), Is.EqualTo(365));
-        throw new NotImplementedException("Необходимо добавить больше тестов");
+        That(NumberOfDays(2022), Is.EqualTo(365));
+        That(NumberOfDays(2023), Is.EqualTo(365));
+        That(NumberOfDays(2024), Is.EqualTo(366));
+        That(NumberOfDays(13454), Is.EqualTo(365));
+
+        That(NumberOfDays(2000), Is.EqualTo(366));
+        That(NumberOfDays(2100), Is.EqualTo(365));
+        That(NumberOfDays(2300), Is.EqualTo(365));
+        That(NumberOfDays(2400), Is.EqualTo(366));
+        That(NumberOfDays(3000), Is.EqualTo(365));
+
+        // ДО 1581 года календарь не был григорианским
+        Throws<ArgumentOutOfRangeException>(() => NumberOfDays(-1650));
+        Throws<ArgumentOutOfRangeException>(() => NumberOfDays(0));
+        Throws<ArgumentOutOfRangeException>(() => NumberOfDays(1581));
     }
 
     [Test]
