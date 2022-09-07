@@ -1,4 +1,5 @@
 ﻿using System;
+using NUnit.Framework;
 
 namespace Task3
 {
@@ -90,9 +91,45 @@ namespace Task3
          * Пожалуйста, научитесь делать такие вещи очень аккуратно. Программное обеспечение
          * переполнено некорректными с точки зрения русского языка решениями.
          */
-        internal static String AgeDescription(int age)
+        internal static string AgeDescription(int age)
         {
-            throw new NotImplementedException();
+            if (age is < 20 or > 69) {
+                throw new ArgumentOutOfRangeException(nameof(age), "Age must be in range 20..69");
+            }
+
+            var mostSignificantDigit = age / 10;
+            var leastSignificantDigit = age % 10;
+
+            var wordOne = mostSignificantDigit switch {
+                2 => "двадцать",
+                3 => "тридцать",
+                4 => "сорок",
+                5 => "пятьдесят",
+                6 => "шестьдесят",
+                _ => throw new AssertionException("Impossible"),
+            };
+
+            var wordTwo = leastSignificantDigit switch {
+                0 => null,
+                1 => "один",
+                2 => "два",
+                3 => "три",
+                4 => "четыре",
+                5 => "пять",
+                6 => "шесть",
+                7 => "семь",
+                8 => "восемь",
+                9 => "девять",
+                _ => throw new AssertionException("Impossible"),
+            };
+
+            var suffix = leastSignificantDigit switch {
+                1 => "год",
+                2 or 3 or 4 => "года",
+                _ => "лет",
+            };
+
+            return wordTwo == null ? $"{wordOne} {suffix}" : $"{wordOne} {wordTwo} {suffix}";
         }
 
         public static void Main(string[] args)

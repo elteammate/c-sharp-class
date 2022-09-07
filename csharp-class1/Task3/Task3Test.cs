@@ -81,7 +81,21 @@ public class Tests
     public void AgeDescriptionTest()
     {
         That(AgeDescription(42), Is.EqualTo("сорок два года"));
-        throw new NotImplementedException("Необходимо добавить больше тестов");
+        That(AgeDescription(69), Is.EqualTo("шестьдесят девять лет"));
+        That(AgeDescription(20), Is.EqualTo("двадцать лет"));
+        That(AgeDescription(38), Is.EqualTo("тридцать восемь лет"));
+        That(AgeDescription(22), Is.EqualTo("двадцать два года"));
+        That(AgeDescription(51), Is.EqualTo("пятьдесят один год"));
+        That(AgeDescription(63), Is.EqualTo("шестьдесят три года"));
+        That(AgeDescription(44), Is.EqualTo("сорок четыре года"));
+        That(AgeDescription(35), Is.EqualTo("тридцать пять лет"));
+        That(AgeDescription(27), Is.EqualTo("двадцать семь лет"));
+
+        Throws<ArgumentOutOfRangeException>(() => AgeDescription(-1));
+        Throws<ArgumentOutOfRangeException>(() => AgeDescription(0));
+        Throws<ArgumentOutOfRangeException>(() => AgeDescription(19));
+        Throws<ArgumentOutOfRangeException>(() => AgeDescription(70));
+        Throws<ArgumentOutOfRangeException>(() => AgeDescription(1337));
     }
 
     [Test]
