@@ -46,7 +46,7 @@ public class Tests
     {
         That(Max3(1, 1, 1), Is.EqualTo(1));
     }
-    
+
     [Test]
     public void Max3Test4()
     {
@@ -72,20 +72,25 @@ public class Tests
     {
         That(Rad2Deg(0.0), Is.EqualTo(0.0).Within(1e-5));
         That(Rad2Deg(0.0), Is.EqualTo(0.0).Within(1e-5));
-        
+
         That(Deg2Rad(360.0), Is.EqualTo(Math.PI * 2).Within(1e-5));
         That(Rad2Deg(Math.PI * 2), Is.EqualTo(360.0).Within(1e-5));
-        
+
         That(Deg2Rad(30), Is.EqualTo(Math.PI * (1.0 / 6.0)).Within(1e-5));
         That(Rad2Deg(Math.PI * (1.0 / 6.0)), Is.EqualTo(30).Within(1e-5));
 
-        var phiDeg = 234.12038984753;
-        var phiRad = 4.08617164889;
-        
-        That(Deg2Rad(phiDeg), Is.EqualTo(phiRad).Within(1e-5));
-        That(Rad2Deg(phiRad), Is.EqualTo(phiDeg).Within(1e-5));
-        
-        That(Deg2Rad(-phiDeg), Is.EqualTo(-phiRad).Within(1e-5));
-        That(Rad2Deg(-phiRad), Is.EqualTo(-phiDeg).Within(1e-5));
+        // https://www.google.com/search?q=4.08617164889+rad+to+deg
+        const double phi1Deg = 234.12038984753;
+        const double phi1Rad = 4.08617164889;
+
+        // https://www.google.com/search?q=654.1348971662345+rad+to+deg
+        const double phi2Deg = 37479.168839942321938;
+        const double phi2Rad = 654.1348971662345;
+
+        That(Deg2Rad(phi1Deg), Is.EqualTo(phi1Rad).Within(1e-5));
+        That(Rad2Deg(phi1Rad), Is.EqualTo(phi1Deg).Within(1e-5));
+
+        That(Deg2Rad(-phi2Deg), Is.EqualTo(-phi2Rad).Within(1e-5));
+        That(Rad2Deg(-phi2Rad), Is.EqualTo(-phi2Deg).Within(1e-5));
     }
 }
