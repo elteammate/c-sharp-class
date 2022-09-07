@@ -115,6 +115,8 @@ public class Tests
     [Test]
     public void MainTest()
     {
-        Main(Array.Empty<string>());
+        That(Main(Array.Empty<string>()), Is.EqualTo(-1));
+        That(Main(new[] { "some-arg", "other-arg" }), Is.EqualTo(-1));
+        That(Main(new[] { "unknown-arg" }), Is.EqualTo(-1));
     }
 }

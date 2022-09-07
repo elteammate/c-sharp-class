@@ -108,11 +108,50 @@ namespace Task4
             return approximation;
         }
 
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
-            PrintFrame(5, 3, '+');
-            throw new NotImplementedException(
-                "Вызовите здесь все перечисленные в классе функции, как это сделано в предыдущих заданиях");
+            if (args.Length != 1) {
+                Console.WriteLine("Usage: <program> <command>");
+                return -1;
+            }
+
+            var command = args[0];
+
+            switch (command) {
+                case "printFrame": {
+                    var w = int.Parse(Console.ReadLine()!);
+                    var h = int.Parse(Console.ReadLine()!);
+                    var c = char.Parse(Console.ReadLine()!);
+                    PrintFrame(w, h, c);
+                    break;
+                }
+
+                case "printFrame2": {
+                    var w = int.Parse(Console.ReadLine()!);
+                    var h = int.Parse(Console.ReadLine()!);
+                    var c = char.Parse(Console.ReadLine()!);
+                    PrintFrame2(w, h, c);
+                    break;
+                }
+
+                case "gcd": {
+                    var a = long.Parse(Console.ReadLine()!);
+                    var b = long.Parse(Console.ReadLine()!);
+                    Console.WriteLine(Gcd(a, b));
+                    break;
+                }
+
+                case "expTaylor": {
+                    var x = double.Parse(Console.ReadLine()!);
+                    var n = int.Parse(Console.ReadLine()!);
+                    Console.WriteLine(ExpTaylor(x, n));
+                    break;
+                }
+
+                default: return -1;
+            }
+
+            return 0;
         }
     }
 }
