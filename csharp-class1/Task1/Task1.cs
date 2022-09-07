@@ -2,7 +2,7 @@
 
 namespace Task1
 {
-    public class Task1
+    public static class Task1
     {
         /*
          * Задание 1.1. Напишите функцию `sayHello`, которая печатает строку, состоящую из "Hello ",

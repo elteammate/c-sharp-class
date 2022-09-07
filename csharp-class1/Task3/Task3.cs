@@ -2,7 +2,7 @@
 
 namespace Task3
 {
-    public class Task3
+    public static class Task3
     {
         /*
          * Прежде чем приступать к выполнению заданий, допишите к ним тесты.

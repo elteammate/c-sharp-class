@@ -2,7 +2,7 @@
 
 namespace Task4
 {
-    public class Task4
+    public static class Task4
     {
 /*
  * В решениях следующих заданий предполагается использование циклов.

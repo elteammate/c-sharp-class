@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace Task5
 {
-    public class Task5
+    public static class Task5
     {
 /*
  * Задание 5.1. Запустите функцию `main`, нажав зелёный треугольник слева от её имени. Это действие создаст

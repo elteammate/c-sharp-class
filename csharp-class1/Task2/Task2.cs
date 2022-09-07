@@ -2,7 +2,7 @@
 
 namespace Task2
 {
-    public class Task2
+    public static class Task2
     {
         /*
          * Задание 2.0. Прочтите задания 2.1-2.4, затем посмотрите, как тестируются реализации этих функций
