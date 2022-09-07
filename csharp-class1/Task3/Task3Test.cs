@@ -68,7 +68,13 @@ public class Tests
     public void Rotate2Test()
     {
         That(Rotate2('С', 1, -1), Is.EqualTo('С'));
-        throw new NotImplementedException("Необходимо добавить больше тестов");
+        That(Rotate2('С', 1, 1), Is.EqualTo('Ю'));
+        That(Rotate2('Ю', 1, 1), Is.EqualTo('С'));
+        That(Rotate2('В', 2, 2), Is.EqualTo('В'));
+        That(Rotate2('С', -1, -1), Is.EqualTo('Ю'));
+        That(Rotate2('С', 2, -1), Is.EqualTo('З'));
+        That(Rotate2('З', -1, 2), Is.EqualTo('Ю'));
+        That(Rotate2('Ю', 1, 2), Is.EqualTo('З'));
     }
 
     [Test]

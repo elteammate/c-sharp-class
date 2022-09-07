@@ -47,6 +47,28 @@ namespace Task3
             return 365;
         }
 
+        private static char NextOrientation(char c)
+        {
+            return c switch {
+                'С' => 'З',
+                'З' => 'Ю',
+                'Ю' => 'В',
+                'В' => 'С',
+                _ => throw new ArgumentOutOfRangeException(nameof(c), "Invalid direction"),
+            };
+        }
+
+        private static char Rotate(char orientation, int cmd)
+        {
+            return cmd switch {
+                0 => orientation,
+                1 => NextOrientation(orientation),
+                2 => NextOrientation(NextOrientation(orientation)),
+                -1 => NextOrientation(NextOrientation(NextOrientation(orientation))),
+                _ => throw new ArgumentOutOfRangeException(nameof(cmd), "Invalid command"),
+            };
+        }
+
         /*
          * Задание 3.3. Локатор ориентирован на одну из сторон света («С» — север, «З» — запад,
          * «Ю» — юг, «В» — восток) и может принимать три цифровые команды поворота:
@@ -54,15 +76,9 @@ namespace Task3
          * Дан символ C — исходная ориентация локатора и целые числа N1 и N2 — две посланные команды.
          * Вернуть ориентацию локатора после выполнения этих команд.
          */
-
-        internal static char Rotate1(char orientation, int cmd1, int cmd2)
-        {
-            throw new NotImplementedException();
-        }
-
         internal static char Rotate2(char orientation, int cmd1, int cmd2)
         {
-            throw new NotImplementedException();
+            return Rotate(Rotate(orientation, cmd1), cmd2);
         }
 
         /*
