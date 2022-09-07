@@ -8,8 +8,39 @@ public class Tests
     [Test]
     public void FTest()
     {
+        const double eps = 1e-6;
+
+        That(F(-eps), Is.EqualTo(0.0).Within(1e-5));
+        That(F(-1.0), Is.EqualTo(0.0).Within(1e-5));
+        That(F(-1.5), Is.EqualTo(0.0).Within(1e-5));
+        That(F(-2.56), Is.EqualTo(0.0).Within(1e-5));
+        That(F(-1337), Is.EqualTo(0.0).Within(1e-5));
+
         That(F(0.0), Is.EqualTo(1.0).Within(1e-5));
-        throw new NotImplementedException("Необходимо добавить больше тестов");
+
+        That(F(0.5), Is.EqualTo(1.0).Within(1e-5));
+        That(F(eps), Is.EqualTo(1.0).Within(1e-5));
+        That(F(1 - eps), Is.EqualTo(1.0).Within(1e-5));
+
+        That(F(1.0), Is.EqualTo(-1.0).Within(1e-5));
+        That(F(1.5), Is.EqualTo(-1.0).Within(1e-5));
+        That(F(1.0 + eps), Is.EqualTo(-1.0).Within(1e-5));
+        That(F(2.0 - eps), Is.EqualTo(-1.0).Within(1e-5));
+
+
+        That(F(7.5), Is.EqualTo(-1.0).Within(1e-5));
+        That(F(23.367), Is.EqualTo(-1.0).Within(1e-5));
+        That(F(49.957), Is.EqualTo(-1.0).Within(1e-5));
+
+        That(F(8.5), Is.EqualTo(1.0).Within(1e-5));
+        That(F(24.367), Is.EqualTo(1.0).Within(1e-5));
+        That(F(50.957), Is.EqualTo(1.0).Within(1e-5));
+
+        That(F(54347), Is.EqualTo(-1.0).Within(1e-5));
+        That(F(1337), Is.EqualTo(-1.0).Within(1e-5));
+
+        That(F(1338), Is.EqualTo(1.0).Within(1e-5));
+        That(F(543414), Is.EqualTo(1.0).Within(1e-5));
     }
 
     [Test]

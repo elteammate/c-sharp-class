@@ -14,7 +14,18 @@ namespace Task3
          * f(x) = 	1,	если x принадлежит [0, 1), [2, 3), …,
                    −1,	если x принадлежит [1, 2), [3, 4), … .
          */
-        internal static double F(double x) => throw new NotImplementedException();
+        internal static double F(double x)
+        {
+            if (x < 0) {
+                return 0;
+            }
+
+            if (x % 2 < 1) {
+                return 1;
+            }
+
+            return -1;
+        }
 
         /*
          * Задание 3.2. Дан номер года (положительное целое число). Определить количество дней в этом году,
