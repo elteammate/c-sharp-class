@@ -97,7 +97,15 @@ namespace Task4
          */
         internal static double ExpTaylor(double x, int n)
         {
-            throw new NotImplementedException();
+            var approximation = 0.0;
+            var term = 1.0;
+
+            for (var i = 1; i <= n; i++) {
+                approximation += term;
+                term *= x / i;
+            }
+
+            return approximation;
         }
 
         public static void Main(string[] args)
