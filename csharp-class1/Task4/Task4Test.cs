@@ -26,25 +26,61 @@ public class Tests
     }
 
     [Test]
-    public void TestPrintFrame1()
+    public void TestPrintFrame1_Test1()
     {
         PrintFrame(5, 3, '+');
-        AssertOut(
-@"+++++
-+   +
-+++++");
+        AssertOut("+++++\n+   +\n+++++");
     }
 
     [Test]
-    public void TestPrintFrame2()
+    public void TestPrintFrame1_Test2()
     {
-        PrintFrame2(5, 3, '+');
-        AssertOut(
-@"+++++
-+   +
-+++++");
+        PrintFrame(5, 2, '&');
+        AssertOut("&&&&&\n&&&&&");
     }
 
+    [Test]
+    public void TestPrintFrame1_Test3()
+    {
+        PrintFrame(2, 5, 'x');
+        AssertOut("xx\nxx\nxx\nxx\nxx");
+    }
+
+    [Test]
+    public void TestPrintFrame1_Test4()
+    {
+        PrintFrame(4, 4);
+        AssertOut("****\n*  *\n*  *\n****");
+    }
+
+    [Test]
+    public void TestPrintFrame2_Test1()
+    {
+        PrintFrame2(5, 3, '+');
+        AssertOut("+++++\n+   +\n+++++");
+    }
+
+    [Test]
+    public void TestPrintFrame2_Test2()
+    {
+        PrintFrame2(5, 2, '&');
+        AssertOut("&&&&&\n&&&&&");
+    }
+
+    [Test]
+    public void TestPrintFrame2_Test3()
+    {
+        PrintFrame2(2, 5, 'x');
+        AssertOut("xx\nxx\nxx\nxx\nxx");
+    }
+
+    [Test]
+    public void TestPrintFrame2_Test4()
+    {
+        PrintFrame2(4, 4);
+        AssertOut("****\n*  *\n*  *\n****");
+    }
+    
     [Test]
     public void TestGcd()
     {
