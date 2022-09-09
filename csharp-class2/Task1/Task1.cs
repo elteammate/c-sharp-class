@@ -51,7 +51,17 @@ public static class Task1
      * где на месте знака операции «±» находится символ «+» или «−» (например, «4+7−2−8»). Вывести значение
      * данного выражения (целое число).
      */
-    internal static int CalcDigits(string expr) => throw new NotImplementedException();
+    internal static int CalcDigits(string expr)
+    {
+        expr = expr.Insert(0, "+");
+        var result = 0;
+        
+        for (var i = 0; i < expr.Length; i += 2) {
+            result += (expr[i + 1] - '0') * (expr[i] == '+' ? 1 : -1);
+        }
+
+        return result;
+    }
 
     /*
      * Задание 1.6. Даны строки S, S1 и S2. Заменить в строке S первое вхождение строки S1 на строку S2.
