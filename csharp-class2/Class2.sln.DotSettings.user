@@ -3,5 +3,6 @@
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::88659354-92EE-43C3-8133-E9D92D7B414A::net6.0::Task1.Tests&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::7B11C5F8-5603-4827-AD06-B36B10C7E178::net6.0::Task2.Tests&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::EB477B20-6866-4208-A23E-DD769E4E5309::net6.0::Task3.Tests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

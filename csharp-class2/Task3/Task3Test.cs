@@ -16,7 +16,7 @@ public class Tests
     }
 
     [Test]
-    public void ContainsABCTest()
+    public void ContainsAbcTest()
     {
         That(ContainsAbc("01aBC"), Is.True);
         That(ContainsAbc("ABC"), Is.True);

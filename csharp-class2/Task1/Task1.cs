@@ -13,7 +13,7 @@ public static class Task1
      * Задание 1.2. Дана непустая строка. Вернуть коды ее первого и последнего символов.
      * Рекомендуется найти специальные функции для вычисления соответствующих символов и их кодов.
      */
-    internal static Tuple<int?, int?> FirstLastCodes(string s) => new (Code(First(s)), Code(Last(s)));
+    internal static Tuple<int?, int?> FirstLastCodes(string s) => new(Code(First(s)), Code(Last(s)));
 
     private static char? First(string s) => s.Length > 0 ? s[0] : null;
     private static char? Last(string s) => s.Length > 0 ? s[^1] : null;
@@ -28,8 +28,7 @@ public static class Task1
     {
         var count = 0;
         foreach (var t in s) {
-            if (char.IsDigit(t))
-            {
+            if (char.IsDigit(t)) {
                 count++;
             }
         }
@@ -55,7 +54,7 @@ public static class Task1
     {
         expr = expr.Insert(0, "+");
         var result = 0;
-        
+
         for (var i = 0; i < expr.Length; i += 2) {
             result += (expr[i + 1] - '0') * (expr[i] == '+' ? 1 : -1);
         }
