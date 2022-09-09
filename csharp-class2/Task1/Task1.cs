@@ -15,9 +15,9 @@ public static class Task1
      */
     internal static Tuple<int?, int?> FirstLastCodes(string s) => new (Code(First(s)), Code(Last(s)));
 
-    private static char? First(string s) => throw new NotImplementedException();
-    private static char? Last(string s) => throw new NotImplementedException();
-    private static int? Code(char? c) => throw new NotImplementedException();
+    private static char? First(string s) => s.Length > 0 ? s[0] : null;
+    private static char? Last(string s) => s.Length > 0 ? s[^1] : null;
+    private static int? Code(char? c) => c;
 
 
     /*
