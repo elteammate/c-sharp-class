@@ -87,7 +87,11 @@ public static class Task1
 
     public static void Main(string[] args)
     {
-        throw new NotImplementedException(
-            "Вызовите здесь все перечисленные в классе функции, как это сделано в предыдущих заданиях");
+        Console.WriteLine(StringLength("Hello"));
+        Console.WriteLine(FirstLastCodes("Hello"));
+        Console.WriteLine(CountDigits("Hello123"));
+        Console.WriteLine(CountDigits2("Hello123"));
+        Console.WriteLine(CalcDigits("4+7-2-8"));
+        Console.WriteLine(ReplaceWithString("Hello world", "world", "everyone"));
     }
 }
