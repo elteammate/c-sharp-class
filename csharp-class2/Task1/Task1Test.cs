@@ -11,7 +11,7 @@ public class Tests
     {
         That(StringLength("hello"), Is.EqualTo(5));
         That(StringLength(""), Is.EqualTo(0));
-        That(StringLength(new String('x', 1000)), Is.EqualTo(1000));
+        That(StringLength(new string('x', 1000)), Is.EqualTo(1000));
     }
 
     [Test]
@@ -36,7 +36,7 @@ public class Tests
         That(CountDigits2("x1x2x3"), Is.EqualTo(3));
         That(CountDigits2("1a2b3c"), Is.EqualTo(3));
     }
-    
+
     [Test]
     public void CalcDigitsTest()
     {
@@ -48,9 +48,6 @@ public class Tests
     [Test]
     public void ReplaceWithStringTest()
     {
-        /*assertEquals("Миру война", replaceWithString("Миру мир", "мир", "война"))
-        assertEquals("xxxcd", replaceWithString("abcd", "ab", "xxx"))
-        assertEquals("xxxcdab", replaceWithString("abcdab", "ab", "xxx"))*/
         That(ReplaceWithString("Миру мир", "мир", "война"), Is.EqualTo("Миру война"));
         That(ReplaceWithString("abcd", "ab", "xxx"), Is.EqualTo("xxxcd"));
         That(ReplaceWithString("abcdab", "ab", "xxx"), Is.EqualTo("xxxcdab"));

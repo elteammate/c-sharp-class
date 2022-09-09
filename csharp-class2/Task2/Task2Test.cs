@@ -18,16 +18,16 @@ public class Tests
     public void TabulateSquaresTest()
     {
         That(TabulateSquares(3), Is.EqualTo(
-@"1 1
+            @"1 1
 2 4
 3 9"));
         That(TabulateSquares(4), Is.EqualTo(
-@"1  1
+            @"1  1
 2  4
 3  9
 4 16"));
         That(TabulateSquares(10), Is.EqualTo(
-@"1    1
+            @"1    1
 2    4
 3    9
 4   16
@@ -37,6 +37,5 @@ public class Tests
 8   64
 9   81
 10 100"));
-        
     }
 }
