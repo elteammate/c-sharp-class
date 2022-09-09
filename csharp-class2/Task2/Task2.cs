@@ -1,4 +1,6 @@
-﻿namespace Task2;
+﻿using System.Text;
+
+namespace Task2;
 
 public static class Task2
 {
@@ -11,7 +13,16 @@ public static class Task2
      * Задание 2.1. Дана непустая строка S и целое число N (> 0). Вернуть строку, содержащую символы
      * строки S, между которыми вставлено по N символов «*» (звездочка).
      */
-    internal static string FillWithAsterisks(string s, int n) => throw new NotImplementedException();
+    internal static string FillWithAsterisks(string s, int n)
+    {
+        var builder = new StringBuilder(s, (n + 1) * s.Length);
+        
+        for (var i = 1; i < s.Length; i++) {
+            builder.Insert(i + n * (i - 1), new string('*', n));
+        }
+
+        return builder.ToString();
+    }
 
     /*
      * Задание 2.2. Сформировать таблицу квадратов чисел от 1 до заданного числа N.
