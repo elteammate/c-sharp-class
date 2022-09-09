@@ -7,7 +7,7 @@ public static class Task1
      * где NN — длина заданной строки. Например, если задана строка "hello",
      * то результатом должна быть строка "Длина: 5".
      */
-    internal static int StringLength(string s) => throw new NotImplementedException();
+    internal static int StringLength(string s) => s.Length;
 
     /*
      * Задание 1.2. Дана непустая строка. Вернуть коды ее первого и последнего символов.
