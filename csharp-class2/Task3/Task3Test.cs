@@ -18,11 +18,11 @@ public class Tests
     [Test]
     public void ContainsABCTest()
     {
-        That(ContainsABC("01aBC"), Is.True);
-        That(ContainsABC("ABC"), Is.True);
-        That(ContainsABC("xabcx"), Is.True);
-        That(ContainsABC("abD"), Is.False);
-        That(ContainsABC("bcbcbca"), Is.False);
+        That(ContainsAbc("01aBC"), Is.True);
+        That(ContainsAbc("ABC"), Is.True);
+        That(ContainsAbc("xabcx"), Is.True);
+        That(ContainsAbc("abD"), Is.False);
+        That(ContainsAbc("bcbcbca"), Is.False);
     }
 
     [Test]
