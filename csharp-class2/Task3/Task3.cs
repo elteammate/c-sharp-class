@@ -33,8 +33,13 @@ public static class Task3
     internal static string HideDigits(string s, string s1) => new Regex(@"\d+").Replace(s, s1);
 
     public static void Main(string[] args)
-    {
-        throw new NotImplementedException(
-            "Вызовите здесь все перечисленные в классе функции, как это сделано в предыдущих заданиях");
+    { 
+        Console.WriteLine(AllDigits("1234567890"));
+        Console.WriteLine(AllDigits("1234567890a"));
+        Console.WriteLine(ContainsAbc("Abc"));
+        Console.WriteLine(ContainsAbc("abc"));
+        Console.WriteLine(ContainsAbc("abcA"));
+        Console.WriteLine(FindDigitalSubstring("abc123"));
+        Console.WriteLine(HideDigits("abc123", "XXXXX"));
     }
 }
