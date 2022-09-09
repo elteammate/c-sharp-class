@@ -24,7 +24,18 @@ public static class Task1
      * Задание 1.3. Дана строка. Подсчитать количество содержащихся в ней цифр.
      * В решении необходимо воспользоваться циклом for.
      */
-    internal static int CountDigits(string s) => throw new NotImplementedException();
+    internal static int CountDigits(string s)
+    {
+        var count = 0;
+        foreach (var t in s) {
+            if (char.IsDigit(t))
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
 
     /*
      * Задание 1.4. Дана строка. Подсчитать количество содержащихся в ней цифр.
@@ -33,7 +44,7 @@ public static class Task1
      * и функцией Char.IsDigit:
      * https://docs.microsoft.com/ru-ru/dotnet/api/system.char.isdigit?view=net-6.0
      */
-    internal static int CountDigits2(string s) => throw new NotImplementedException();
+    internal static int CountDigits2(string s) => s.Count(char.IsDigit);
 
     /*
      * Задание 1.5. Дана строка, изображающая арифметическое выражение вида «<цифра>±<цифра>±…±<цифра>»,
