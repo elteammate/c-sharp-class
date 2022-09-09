@@ -66,7 +66,24 @@ public static class Task1
     /*
      * Задание 1.6. Даны строки S, S1 и S2. Заменить в строке S первое вхождение строки S1 на строку S2.
      */
-    internal static string ReplaceWithString(string s, string s1, string s2) => throw new NotImplementedException();
+    internal static string ReplaceWithString(string s, string s1, string s2)
+    {
+        for (var i = 0; i <= s.Length - s1.Length; i++) {
+            var isMatch = true;
+            for (var j = 0; j < s1.Length; j++) {
+                if (s[i + j] != s1[j]) {
+                    isMatch = false;
+                    break;
+                }
+            }
+
+            if (isMatch) {
+                return s[..i] + s2 + s[(i + s1.Length)..];
+            }
+        }
+
+        return s;
+    }
 
 
     public static void Main(string[] args)
