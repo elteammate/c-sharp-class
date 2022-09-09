@@ -37,7 +37,23 @@ public static class Task2
      * а числа во втором -- по правому, причём между числами должен оставаться как минимум один
      * пробел. В решении можно использовать функции Pad*.
      */
-    internal static string TabulateSquares(int n) => throw new NotImplementedException();
+    internal static string TabulateSquares(int n)
+    {
+        var columnOneWidth = n.ToString().Length;
+        var columnTwoWidth = (n * n).ToString().Length;
+        var builder = new StringBuilder(n * (columnOneWidth + columnTwoWidth + 2));
+        
+        for (var i = 1; i <= n; i++) {
+            builder.Append(i.ToString().PadRight(columnOneWidth));
+            builder.Append(' ');
+            builder.Append((i * i).ToString().PadLeft(columnTwoWidth));
+            builder.Append('\n');
+        }
+
+        // Remove last \n
+        builder.Remove(builder.Length - 1, 1);
+        return builder.ToString();
+    }
 
     public static void Main(string[] args)
     {
