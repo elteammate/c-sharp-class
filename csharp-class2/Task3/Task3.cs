@@ -18,7 +18,8 @@ public static class Task3
      * Задание 3.2. Проверить, содержит ли заданная строка подстроку, состоящую
      * из букв abc в указанном порядке, но в произвольном регистре?
      */
-    internal static bool ContainsAbc(string s) => new Regex(@"abc", RegexOptions.IgnoreCase).IsMatch(s);
+    internal static bool ContainsAbc(string s) =>
+        new Regex(@"abc", RegexOptions.IgnoreCase).IsMatch(s);
 
     /*
      * Задание 3.3. Найти первое вхождение подстроки, состоящей только из цифр,
@@ -33,7 +34,7 @@ public static class Task3
     internal static string HideDigits(string s, string s1) => new Regex(@"\d+").Replace(s, s1);
 
     public static void Main(string[] args)
-    { 
+    {
         Console.WriteLine(AllDigits("1234567890"));
         Console.WriteLine(AllDigits("1234567890a"));
         Console.WriteLine(ContainsAbc("Abc"));

@@ -17,7 +17,8 @@ public static class Task2
     {
         var builder = new StringBuilder(s, (n + 1) * s.Length);
 
-        for (var i = 1; i < s.Length; i++) {
+        for (var i = 1; i < s.Length; i++)
+        {
             builder.Insert(i + n * (i - 1), new string('*', n));
         }
 
@@ -43,7 +44,8 @@ public static class Task2
         var columnTwoWidth = (n * n).ToString().Length;
         var builder = new StringBuilder(n * (columnOneWidth + columnTwoWidth + 2));
 
-        for (var i = 1; i <= n; i++) {
+        for (var i = 1; i <= n; i++)
+        {
             builder.Append(i.ToString().PadRight(columnOneWidth));
             builder.Append(' ');
             builder.Append((i * i).ToString().PadLeft(columnTwoWidth));
