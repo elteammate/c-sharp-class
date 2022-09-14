@@ -18,13 +18,9 @@ namespace Task3
          */
         internal static double F(double x)
         {
-            if (x < 0) {
-                return 0;
-            }
+            if (x < 0) return 0;
 
-            if (x % 2 < 1) {
-                return 1;
-            }
+            if (x % 2 < 1) return 1;
 
             return -1;
         }
@@ -38,36 +34,40 @@ namespace Task3
         internal static int NumberOfDays(int year)
         {
             // https://en.wikipedia.org/wiki/Gregorian_calendar
-            if (year < 1582) {
-                throw new ArgumentOutOfRangeException(nameof(year), "Gregorian calendar was introduced in 1582");
-            }
+            if (year < 1582)
+                throw new ArgumentOutOfRangeException(nameof(year),
+                    "Gregorian calendar was introduced in 1582");
 
-            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
                 return 366;
-            }
 
             return 365;
         }
 
         private static char NextOrientation(char c)
         {
-            return c switch {
+            return c switch
+            {
                 'С' => 'З',
                 'З' => 'Ю',
                 'Ю' => 'В',
                 'В' => 'С',
-                _ => throw new ArgumentOutOfRangeException(nameof(c), "Invalid direction")
+                _ => throw new ArgumentOutOfRangeException(nameof(c),
+                    "Invalid direction")
             };
         }
 
         private static char Rotate(char orientation, int cmd)
         {
-            return cmd switch {
+            return cmd switch
+            {
                 0 => orientation,
                 1 => NextOrientation(orientation),
                 2 => NextOrientation(NextOrientation(orientation)),
-                -1 => NextOrientation(NextOrientation(NextOrientation(orientation))),
-                _ => throw new ArgumentOutOfRangeException(nameof(cmd), "Invalid command")
+                -1 => NextOrientation(
+                    NextOrientation(NextOrientation(orientation))),
+                _ => throw new ArgumentOutOfRangeException(nameof(cmd),
+                    "Invalid command")
             };
         }
 
@@ -92,14 +92,15 @@ namespace Task3
          */
         internal static string AgeDescription(int age)
         {
-            if (age is < 20 or > 69) {
-                throw new ArgumentOutOfRangeException(nameof(age), "Age must be in range 20..69");
-            }
+            if (age is < 20 or > 69)
+                throw new ArgumentOutOfRangeException(nameof(age),
+                    "Age must be in range 20..69");
 
             var mostSignificantDigit = age / 10;
             var leastSignificantDigit = age % 10;
 
-            var wordOne = mostSignificantDigit switch {
+            var wordOne = mostSignificantDigit switch
+            {
                 2 => "двадцать",
                 3 => "тридцать",
                 4 => "сорок",
@@ -108,7 +109,8 @@ namespace Task3
                 _ => throw new AssertionException("Impossible")
             };
 
-            var wordTwo = leastSignificantDigit switch {
+            var wordTwo = leastSignificantDigit switch
+            {
                 0 => null,
                 1 => "один",
                 2 => "два",
@@ -122,48 +124,60 @@ namespace Task3
                 _ => throw new AssertionException("Impossible")
             };
 
-            var suffix = leastSignificantDigit switch {
+            var suffix = leastSignificantDigit switch
+            {
                 1 => "год",
                 2 or 3 or 4 => "года",
                 _ => "лет"
             };
 
-            return wordTwo == null ? $"{wordOne} {suffix}" : $"{wordOne} {wordTwo} {suffix}";
+            return wordTwo == null
+                ? $"{wordOne} {suffix}"
+                : $"{wordOne} {wordTwo} {suffix}";
         }
 
         public static int Main(string[] args)
         {
-            if (args.Length != 1) {
+            if (args.Length != 1)
+            {
                 Console.WriteLine("Usage: <program> <command>");
                 return -1;
             }
 
             var command = args[0];
 
-            switch (command) {
-                case "F": {
+            switch (command)
+            {
+                case "F":
+                {
                     var x = double.Parse(Console.ReadLine()!);
                     Console.WriteLine("x = {0}, F(x) = {1}", x, F(x));
                     break;
                 }
 
-                case "days": {
+                case "days":
+                {
                     var year = int.Parse(Console.ReadLine()!);
-                    Console.WriteLine("Year {0} has {1} days", year, NumberOfDays(year));
+                    Console.WriteLine("Year {0} has {1} days", year,
+                        NumberOfDays(year));
                     break;
                 }
 
-                case "rotate": {
+                case "rotate":
+                {
                     var orientation = Console.ReadLine()!.First();
                     var cmd1 = int.Parse(Console.ReadLine()!);
                     var cmd2 = int.Parse(Console.ReadLine()!);
-                    Console.WriteLine("Transformed orientation: {0}", Rotate2(orientation, cmd1, cmd2));
+                    Console.WriteLine("Transformed orientation: {0}",
+                        Rotate2(orientation, cmd1, cmd2));
                     break;
                 }
 
-                case "age": {
+                case "age":
+                {
                     var age = int.Parse(Console.ReadLine()!);
-                    Console.WriteLine("Age description of age {0}: {1}", age, AgeDescription(age));
+                    Console.WriteLine("Age description of age {0}: {1}", age,
+                        AgeDescription(age));
                     break;
                 }
 

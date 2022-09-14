@@ -36,7 +36,9 @@ public class Tests
 
     private void AssertOut(string expected)
     {
-        That(_stringWriter.ToString().TrimEnd(Environment.NewLine.ToCharArray()), Is.EqualTo(expected));
+        That(
+            _stringWriter.ToString().TrimEnd(Environment.NewLine.ToCharArray()),
+            Is.EqualTo(expected));
     }
 
     [Test]
@@ -68,13 +70,15 @@ public class Tests
         runOnInputCheckLastLine("50\n50", "100", Sum);
     }
 
-    private void runOnInputCheckLastLine(string input, string expected, Action action)
+    private void runOnInputCheckLastLine(string input, string expected,
+        Action action)
     {
         Console.SetIn(new StringReader(input));
         action.Invoke();
         var newLineCharArray = Environment.NewLine.ToCharArray();
         That(
-            _stringWriter.ToString().Split(newLineCharArray, StringSplitOptions.RemoveEmptyEntries).Last(),
+            _stringWriter.ToString().Split(newLineCharArray,
+                StringSplitOptions.RemoveEmptyEntries).Last(),
             Is.EqualTo(expected)
         );
     }

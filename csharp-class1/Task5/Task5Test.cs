@@ -58,6 +58,7 @@ public class Tests
 
     private void AssertOut(string expected)
     {
-        That(_stringWriter.ToString().TrimEnd(Environment.NewLine.ToCharArray()), Is.EqualTo(expected));
+        That(_stringWriter.ToString().TrimEnd(Environment.NewLine.ToCharArray()),
+            Is.EqualTo(expected));
     }
 }

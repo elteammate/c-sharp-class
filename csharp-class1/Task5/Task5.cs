@@ -23,9 +23,10 @@ namespace Task5
         private static void DemoInput(string[] args)
         {
             string name;
-            if (args.Length > 0) {
+            if (args.Length > 0)
                 name = string.Join(" ", args);
-            } else {
+            else
+            {
                 Console.WriteLine("Введите имя:");
                 name = Console.ReadLine()!;
             }
@@ -44,13 +45,12 @@ namespace Task5
          */
         private static BigInteger Fib(int n)
         {
-            if (n == 0) {
-                return 0;
-            }
+            if (n == 0) return 0;
 
             var beforeLast = new BigInteger(0);
             var last = new BigInteger(1);
-            for (var i = 1; i < n; i++) {
+            for (var i = 1; i < n; i++)
+            {
                 var newLast = beforeLast + last;
                 beforeLast = last;
                 last = newLast;
@@ -62,7 +62,8 @@ namespace Task5
         internal static void ComputeFib(string[] args)
         {
             // Я знаю, что это написано не так, как в DemoInput, но я считаю, что это читаемее
-            var n = args.Length switch {
+            var n = args.Length switch
+            {
                 1 => int.Parse(args[0]),
                 0 => int.Parse(Console.ReadLine()!),
                 _ => throw new ArgumentException("Wrong number of arguments")
