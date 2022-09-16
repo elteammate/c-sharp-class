@@ -47,12 +47,13 @@ namespace Task5
         {
             if (n == 0) return 0;
 
-            var beforeLast = new BigInteger(0);
+            var previous = new BigInteger(0);
             var last = new BigInteger(1);
+            
             for (var i = 1; i < n; i++)
             {
-                var newLast = beforeLast + last;
-                beforeLast = last;
+                var newLast = previous + last;
+                previous = last;
                 last = newLast;
             }
 
