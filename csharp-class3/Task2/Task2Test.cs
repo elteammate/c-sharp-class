@@ -22,9 +22,7 @@ public class Tests
         var lines = res.ToString().Split(Environment.NewLine);
         That(lines, Has.Length.EqualTo(nOfPoints + 1));
         foreach (var line in lines)
-        {
             That(line.Split(' ', StringSplitOptions.RemoveEmptyEntries),
                 Has.Length.EqualTo(funNames.Count + 1));
-        }
     }
 }

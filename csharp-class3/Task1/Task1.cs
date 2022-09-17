@@ -1,4 +1,5 @@
 ﻿// Колода
+
 using Deck = System.Collections.Generic.List<Card>;
 // Набор карт у игрока
 using Hand = System.Collections.Generic.List<Card>;
