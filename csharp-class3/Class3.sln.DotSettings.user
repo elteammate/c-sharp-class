@@ -5,5 +5,6 @@
     &lt;TestId&gt;NUnit3x::62D6FB8C-2EFE-4A19-B5E2-2BAC6CA4C6D5::net6.0::Task1.Tests.FullDeckTest&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::62D6FB8C-2EFE-4A19-B5E2-2BAC6CA4C6D5::net6.0::Task1.Tests.RoundTest&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::62D6FB8C-2EFE-4A19-B5E2-2BAC6CA4C6D5::net6.0::Task1.Tests.Game2CardsTest&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::C65EA386-CCB0-48F7-96CA-F360547E5EEC::net6.0::Task2.Tests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

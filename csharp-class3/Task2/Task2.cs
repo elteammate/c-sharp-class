@@ -1,4 +1,5 @@
-﻿using OneVariableFunction = System.Func<double, double>;
+﻿using System.Text;
+using OneVariableFunction = System.Func<double, double>;
 using FunctionName = System.String;
 
 namespace Task2
@@ -29,7 +30,7 @@ namespace Task2
             };
 
         // Тип данных для представления входных данных
-        internal record InputData(double FromX, double ToX, int NumberOfPoints, List<OneVariableFunction> FunctionNames);
+        internal record InputData(double FromX, double ToX, int NumberOfPoints, List<string> FunctionNames);
 
         // Чтение входных данных из параметров командной строки
         private static InputData? PrepareData(string[] args)
@@ -41,12 +42,12 @@ namespace Task2
             if (!double.TryParse(args[1], out var toX)) return null;
             if (!int.TryParse(args[2], out var number)) return null;
             
-            var functions = new List<OneVariableFunction>();
+            var functions = new List<string>();
             for (var i = 3; i < args.Length; i++)
             {
                 if (!AvailableFunctions.ContainsKey(args[i]))
                     return null;
-                functions.Add(AvailableFunctions[args[i]]);
+                functions.Add(args[i]);
             }
 
             return new InputData(fromX, toX, number, functions);
@@ -63,18 +64,54 @@ namespace Task2
             // Для форматирования можно использовать функцию String.Format.
             public override string ToString()
             {
-                List<List<string>> formattedValues = new();
-                foreach (var row in Values)
+                var columnCount = ColumnNames.Count;
+                var formattedValues = new List<List<string>>();
+
+                foreach (var line in Values)
                 {
-                    var formattedRow = new List<string>();
-                    foreach (var value in row)
-                    {
-                        formattedRow.Add(value.ToString($"F{Precision}"));
-                    }
-                    formattedValues.Add(formattedRow);
+                    formattedValues.Add(new List<string>());
+                    foreach (var value in line)
+                        formattedValues[^1].Add(value.ToString($"F{Precision}"));
                 }
+
+                var maxLength = new List<int>();
+                
+                for (var column = 0; column < columnCount; column++)
+                {
+                    var valuesSpan = formattedValues.Max(x => x[column].Length);
+                    var headerSpan = ColumnNames[column].Length;
+                    maxLength.Add(Math.Max(valuesSpan, headerSpan));
+                }
+
+                var lineSpanEstimate = maxLength.Sum() + columnCount * 2 + 1;
+                var builder = new StringBuilder(columnCount * lineSpanEstimate);
+
+                void AppendLine(List<string> values)
+                {
+                    for (var column = 0; column < columnCount; column++)
+                    {
+                        var header = values[column];
+                        var headerSpan = header.Length;
+                        var span = maxLength[column];
+                        var padding = span - headerSpan + (column == 0 ? 0 : 1);
+                        builder.Append(' ', padding);
+                        builder.Append(header);
+                    }
+                    
+                    builder.AppendLine();
+                }
+                
+                AppendLine(ColumnNames);
+                foreach (var line in formattedValues)
+                    AppendLine(line);
+
+                builder.Remove(builder.Length - 1, 1);
+                return builder.ToString();
             }
         }
+
+        private static double NthValueInRange(double from, double to, int n, int total) =>
+            from + (to - from) * n / (total - 1);
 
         /*
          * Возвращает таблицу значений заданных функций на заданном отрезке [fromX, toX]
@@ -82,7 +119,28 @@ namespace Task2
          */
         internal static FunctionTable Tabulate(InputData input)
         {
-            throw new NotImplementedException();
+            var values = new List<List<double>>(input.FunctionNames.Count + 1);
+            var columnNames = new List<string>(input.FunctionNames.Count + 1) { "x" };
+            columnNames.AddRange(input.FunctionNames);
+            
+            for (var i = 0; i < input.NumberOfPoints; i++)
+            {
+                var x = NthValueInRange(input.FromX, input.ToX, i, input.NumberOfPoints);
+                
+                values.Add(new List<double>(input.FunctionNames.Count + 1) { x });
+                foreach (var function in input.FunctionNames)
+                {
+                    try
+                    {
+                        values[i].Add(AvailableFunctions[function](x));
+                    } catch (Exception)
+                    {
+                        values[i].Add(double.NaN);
+                    }
+                }
+            }
+
+            return new FunctionTable(3, columnNames, values);
         }
         
         public static void Main(string[] args)
