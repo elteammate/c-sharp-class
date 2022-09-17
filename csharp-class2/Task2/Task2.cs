@@ -1,4 +1,7 @@
 ﻿using System.Text;
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Running;
 
 namespace Task2;
 
@@ -21,6 +24,22 @@ public static class Task2
         {
             builder.Insert(i + n * (i - 1), new string('*', n));
         }
+
+        return builder.ToString();
+    }
+    
+    
+    internal static string FillWithAsterisks2(string s, int n)
+    {
+        var builder = new StringBuilder((n + 1) * s.Length);
+
+        for (var i = 0; i < s.Length - 1; i++)
+        {
+            builder.Append(s[i]);
+            builder.Append('*', n);
+        }
+        
+        builder.Append(s[^1]);
 
         return builder.ToString();
     }
@@ -61,5 +80,32 @@ public static class Task2
     {
         Console.WriteLine(FillWithAsterisks("abc", 2));
         Console.WriteLine(TabulateSquares(4));
+
+        
+        BenchmarkRunner.Run<Benchmark>();
     }
+}
+
+public class Config : ManualConfig
+{
+    public Config()
+    {
+        WithOptions(ConfigOptions.DisableOptimizationsValidator);
+    }
+}
+
+[RPlotExporter]
+[Config(typeof(Config))]
+public class Benchmark
+{
+    [Params(1, 2, 5, 10, 100, 1000)]
+    public int N;
+    
+    [Params(100, 1000, 10_000, 100_000)]
+    public int M;
+
+    [Benchmark]
+    public string Insert() => Task2.FillWithAsterisks(new string('a', M), N);
+    [Benchmark]
+    public string Append() => Task2.FillWithAsterisks2(new string('a', M), N);
 }
