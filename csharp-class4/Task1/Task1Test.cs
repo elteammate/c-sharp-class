@@ -9,25 +9,35 @@ public class Tests
     [Test]
     public void IPv4AddrTest()
     {
-        That(new IPv4Addr("127.0.0.1").IntValue, Is.EqualTo(2130706433u));
-        That(new IPv4Addr("0.0.0.1").IntValue, Is.EqualTo(1u));
-        That(new IPv4Addr("1.1.1.1").IntValue, Is.EqualTo(16843009u));
-        That(new IPv4Addr("255.255.255.255").IntValue, Is.EqualTo(4294967295u));
+        That(new IpV4Addr("127.0.0.1").IntValue, Is.EqualTo(2130706433u));
+        That(new IpV4Addr("0.0.0.1").IntValue, Is.EqualTo(1u));
+        That(new IpV4Addr("1.1.1.1").IntValue, Is.EqualTo(16843009u));
+        That(new IpV4Addr("255.255.255.255").IntValue, Is.EqualTo(4294967295u));
     }
 
     [Test]
     public void CompareIPv4AddrTest()
     {
-        That(new IPv4Addr("127.0.0.1"), Is.LessThan(new IPv4Addr("127.0.0.2")));
-        That(new IPv4Addr("127.0.0.0"), Is.GreaterThan(new IPv4Addr("126.255.255.255")));
+        That(new IpV4Addr("127.0.0.1"), Is.LessThan(new IpV4Addr("127.0.0.2")));
+        That(new IpV4Addr("127.0.0.0"), Is.GreaterThan(new IpV4Addr("126.255.255.255")));
     }
-    
+
     [Test]
     public void ParseArgsTest()
     {
-        var expected = new IPLookupArgs("../../../data/query.ips", new List<string> { "../../../data/1.iprs", "../../../data/2.iprs" });
-        That(ParseArgs(new []{"../../../data/query.ips", "../../../data/1.iprs", "../../../data/2.iprs"}), Is.EqualTo(expected));
-        That(ParseArgs(new []{"../../../data/query.ips"}), Is.Null);
+        That(
+            ParseArgs(new[]
+                    { "../../../data/query.ips", "../../../data/1.iprs", "../../../data/2.iprs" })!
+                .IpsFile,
+            Is.EqualTo("../../../data/query.ips")
+        );
+        That(
+            ParseArgs(new[]
+                    { "../../../data/query.ips", "../../../data/1.iprs", "../../../data/2.iprs" })!
+                .IprsFiles,
+            Is.EqualTo(new List<string> { "../../../data/1.iprs", "../../../data/2.iprs" })
+        );
+        That(ParseArgs(new[] { "../../../data/query.ips" }), Is.Null);
         That(ParseArgs(Array.Empty<string>()), Is.Null);
     }
 
@@ -36,26 +46,31 @@ public class Tests
     {
         That(LoadQuery("../../../data/query.ips").ToList(), Has.Count.EqualTo(5));
     }
-    
+
     [Test]
     public void LoadRangesTest()
     {
-        var ranges = LoadRanges(new List<string> { "../../../data/1.iprs", "../../../data/2.iprs" });
-        throw new NotImplementedException("Допишите тест после задания структуры IPRangesDatabase");
+        var ranges = LoadRanges(new List<string>
+            { "../../../data/1.iprs", "../../../data/2.iprs" });
+        foreach (var (r1, r2) in ranges.Zip(ranges.Skip(1)))
+        {
+            That(r1.IpTo, Is.LessThan(r2.IpTo));
+            That(r1.IpFrom, Is.LessThan(r2.IpFrom));
+        }
     }
-    
+
     [Test]
     public void LoadRangesEmptyTest()
     {
         var ranges = LoadRanges(new List<string>());
-        That(FindRange(ranges, new IPv4Addr("60.161.226.166")), Is.Null);
+        That(FindRange(ranges, new IpV4Addr("60.161.226.166")), Is.Null);
     }
-    
+
     [Test]
     public void LoadFindRangeTest()
     {
-        var ranges = LoadRanges(new List<string>{"../../../data/1.iprs"});
-        That(FindRange(ranges, new IPv4Addr("60.161.226.166")), Is.Not.Null);
-        That(FindRange(ranges, new IPv4Addr("127.0.0.1")), Is.Null);
+        var ranges = LoadRanges(new List<string> { "../../../data/1.iprs" });
+        That(FindRange(ranges, new IpV4Addr("60.161.226.166")), Is.Not.Null);
+        That(FindRange(ranges, new IpV4Addr("127.0.0.1")), Is.Null);
     }
 }

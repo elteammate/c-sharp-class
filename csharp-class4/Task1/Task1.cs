@@ -1,85 +1,133 @@
-﻿namespace Task1
+﻿using System.Collections.Immutable;
+
+namespace Task1;
+
+// Необходимо заменить на более подходящий тип (коллекцию), позволяющий
+// эффективно искать диапазон по заданному IP-адресу
+using IPRangesDatabase = ImmutableArray<Task1.IpRange>;
+
+public static class Task1
 {
-    // Необходимо заменить на более подходящий тип (коллекцию), позволяющий
-    // эффективно искать диапазон по заданному IP-адресу
-    using IPRangesDatabase = Object;
-
-    public class Task1
+    /*
+    * Объекты этого класса создаются из строки, но хранят внутри помимо строки
+    * ещё и целочисленное значение соответствующего адреса. Например, для адреса
+     * 127.0.0.1 должно храниться число 1 + 0 * 2^8 + 0 * 2^16 + 127 * 2^24 = 2130706433.
+    */
+    internal record IpV4Addr(string StrValue) : IComparable<IpV4Addr>
     {
-        /*
-        * Объекты этого класса создаются из строки, но хранят внутри помимо строки
-        * ещё и целочисленное значение соответствующего адреса. Например, для адреса
-         * 127.0.0.1 должно храниться число 1 + 0 * 2^8 + 0 * 2^16 + 127 * 2^24 = 2130706433.
-        */
-        internal record IPv4Addr (string StrValue) : IComparable<IPv4Addr>
+        internal readonly uint IntValue = IpStr2Int(StrValue);
+
+        // Благодаря этому методу мы можем сравнивать два значения IPv4Addr
+        private static uint IpStr2Int(string strValue)
         {
-            internal uint IntValue = Ipstr2Int();
-
-            private static uint Ipstr2Int()
-            {
-                throw new NotImplementedException();
-            }
-
-            // Благодаря этому методу мы можем сравнивать два значения IPv4Addr
-            public int CompareTo(IPv4Addr other)
-            {
-                return IntValue.CompareTo(other.IntValue);
-            }
-
-            public override string ToString()
-            {
-                return StrValue;
-            }
+            var chunks = strValue.Split('.').Select(uint.Parse).ToArray();
+            return (chunks[0] << 24) + (chunks[1] << 16) + (chunks[2] << 8) + chunks[3];
         }
 
-        internal record class IPRange(IPv4Addr IpFrom, IPv4Addr IpTo)
+        public int CompareTo(IpV4Addr? other)
         {
-            public override string ToString()
-            {
-                return $"{IpFrom},{IpTo}";
-            }
+            if (other == null) throw new ArgumentNullException(nameof(other));
+            return IntValue.CompareTo(other.IntValue);
         }
 
-        internal record class IPLookupArgs(string IpsFile, List<string> IprsFiles);
-       
-        internal static IPLookupArgs? ParseArgs(string[] args)
+        public static bool operator <=(IpV4Addr a, IpV4Addr b) => a.CompareTo(b) <= 0;
+
+        public static bool operator >=(IpV4Addr a, IpV4Addr b) => a.CompareTo(b) >= 0;
+
+        public static bool operator <(IpV4Addr a, IpV4Addr b) => a.CompareTo(b) < 0;
+
+        public static bool operator >(IpV4Addr a, IpV4Addr b) => a.CompareTo(b) > 0;
+
+        public override string ToString() => StrValue;
+    }
+
+    internal record IpRange(IpV4Addr IpFrom, IpV4Addr IpTo)
+    {
+        public override string ToString() => $"{IpFrom},{IpTo}";
+
+        public bool Inside(IpV4Addr addr) => IpFrom <= addr && addr <= IpTo;
+    }
+
+    internal record IpLookupArgs(string IpsFile, List<string> IprsFiles);
+
+    internal static IpLookupArgs? ParseArgs(string[] args)
+    {
+        if (args.Length < 2) return null;
+        var ipsFile = args[0];
+        var iprsFile = args[1..].ToList();
+        return new IpLookupArgs(ipsFile, iprsFile);
+    }
+
+    internal static List<IpV4Addr> LoadQuery(string filename) =>
+        File.ReadAllLines(filename).Select(addr => new IpV4Addr(addr)).ToList();
+
+    internal static IPRangesDatabase LoadRanges(List<string> filenames)
+    {
+        // Reading all lines from all files
+        var givenList = (
+            from filename in filenames
+            from line in File.ReadAllLines(filename)
+            select line.Split(',')
+            into ips
+            let ipFrom = new IpV4Addr(ips[0])
+            let ipTo = new IpV4Addr(ips[1])
+            select new IpRange(ipFrom, ipTo)
+        ).ToList();
+
+        // Sorting by increasing order of the first IP address
+        // and then by decreasing order of the second IP address
+        givenList.Sort((a, b) =>
         {
-            throw new NotImplementedException();
-        }
+            var first = a.IpFrom.CompareTo(b.IpFrom);
+            return first != 0 ? first : b.IpTo.CompareTo(a.IpTo);
+        });
 
-        internal static List<string> LoadQuery(string filename) {
-            throw new NotImplementedException();
-        }
+        var size = givenList.Count;
 
-        internal static IPRangesDatabase LoadRanges(List<String> filenames) {
-            throw new NotImplementedException();
-        }
-
-        internal static IPRange? FindRange(IPRangesDatabase ranges, IPv4Addr query) {
-            throw new NotImplementedException();
-        }
-        
-        public static void Main(string[] args)
+        // Calculating all ranges that are included in other ranges
+        var keep = new bool[size];
+        var right = new IpV4Addr("0.0.0.0");
+        for (var i = 0; i < size; i++)
         {
-            var ipLookupArgs = ParseArgs(args);
-            if (ipLookupArgs == null)
-            {
-                return;
-            }
-
-            var queries = LoadQuery(ipLookupArgs.IpsFile);
-                var ranges = LoadRanges(ipLookupArgs.IprsFiles);
-                foreach (var ip in queries)
-                {
-                    var findRange = FindRange(ranges, new IPv4Addr(ip));
-                    var result = TODO<string>();
-                    Console.WriteLine($"{ip}: {result}");
-                }
+            if (givenList[i].IpTo < right) continue;
+            keep[i] = true;
+            right = givenList[i].IpTo;
         }
-        
-        private static T TODO<T>()
+
+        // Returning only ranges that are not included in other ranges
+        return givenList.Where((_, i) => keep[i]).ToImmutableArray();
+    }
+
+    internal static IpRange? FindRange(IPRangesDatabase ranges, IpV4Addr query)
+    {
+        // Perform binary search on ranges database
+        var left = 0;
+        var right = ranges.Length;
+        while (left < right)
         {
-            throw new NotImplementedException();
+            var mid = (left + right) / 2;
+            if (ranges[mid].IpFrom > query)
+                right = mid;
+            else if (ranges[mid].IpTo < query)
+                left = mid + 1;
+            else
+                return ranges[mid];
+        }
+
+        return null;
+    }
+
+    public static void Main(string[] args)
+    {
+        var ipLookupArgs = ParseArgs(args);
+        if (ipLookupArgs == null) return;
+
+        var queries = LoadQuery(ipLookupArgs.IpsFile);
+        var ranges = LoadRanges(ipLookupArgs.IprsFiles);
+        foreach (var ip in queries)
+        {
+            var findRange = FindRange(ranges, ip);
+            Console.WriteLine(findRange != null ? $"{ip}: YES({findRange})" : $"{ip}: NO");
         }
     }
 }
