@@ -1,4 +1,3 @@
-using System.Text;
 using NUnit.Framework;
 using static NUnit.Framework.Assert;
 using static Task2.Task2;
@@ -15,11 +14,11 @@ public class Tests
         {
             File.Copy("../../../data/text-utf8.txt", tmpFileName, true);
             Main(new[] { tmpFileName, "utf-8", "windows-1251" });
-            That(File.ReadAllBytes(tmpFileName), Is.EqualTo(File.ReadAllBytes("../../../data/text-windows-1251.txt")));
-        }
-        finally
+            That(File.ReadAllBytes(tmpFileName),
+                Is.EqualTo(File.ReadAllBytes("../../../data/text-windows-1251.txt")));
+        } finally
         {
-            File.Delete(tmpFileName);            
+            File.Delete(tmpFileName);
         }
     }
 
@@ -30,13 +29,12 @@ public class Tests
         try
         {
             File.Copy("../../../data/text-windows-1251.txt", tmpFileName, true);
-            Main(new[] { tmpFileName, "windows-1251", "utf-8"});
-            That(File.ReadAllBytes(tmpFileName), Is.EqualTo(File.ReadAllBytes("../../../data/text-utf8.txt")));
-        }
-        finally
+            Main(new[] { tmpFileName, "windows-1251", "utf-8" });
+            That(File.ReadAllBytes(tmpFileName),
+                Is.EqualTo(File.ReadAllBytes("../../../data/text-utf8.txt")));
+        } finally
         {
-            File.Delete(tmpFileName);            
+            File.Delete(tmpFileName);
         }
     }
-
 }

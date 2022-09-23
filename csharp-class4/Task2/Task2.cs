@@ -1,11 +1,9 @@
-namespace Task2
+namespace Task2;
+
+public class Task2
 {
-    public class Task2
+    public static void Main(string[] args)
     {
-       
-        public static void Main(string[] args)
-        {
-            throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
     }
 }
