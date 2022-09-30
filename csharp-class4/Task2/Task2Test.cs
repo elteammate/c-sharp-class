@@ -6,35 +6,26 @@ namespace Task2;
 
 public class Tests
 {
+    private const string TmpFileName = "../../../data/temp.txt";
+    private const string Utf8File = "../../../data/text-utf8.txt";
+    private const string Utf32File = "../../../data/text-utf-32.txt";
+
     [Test]
     public void Main1Test()
     {
-        var tmpFileName = Path.GetTempFileName();
-        try
-        {
-            File.Copy("../../../data/text-utf8.txt", tmpFileName, true);
-            Main(new[] { tmpFileName, "utf-8", "windows-1251" });
-            That(File.ReadAllBytes(tmpFileName),
-                Is.EqualTo(File.ReadAllBytes("../../../data/text-windows-1251.txt")));
-        } finally
-        {
-            File.Delete(tmpFileName);
-        }
+        File.Copy(Utf8File, TmpFileName, true);
+        Main(new[] { TmpFileName, "utf-8", "utf-32" });
+        That(File.ReadAllBytes(TmpFileName),
+            Is.EqualTo(File.ReadAllBytes(Utf32File)));
     }
 
     [Test]
     public void Main2Test()
     {
-        var tmpFileName = Path.GetTempFileName();
-        try
-        {
-            File.Copy("../../../data/text-windows-1251.txt", tmpFileName, true);
-            Main(new[] { tmpFileName, "windows-1251", "utf-8" });
-            That(File.ReadAllBytes(tmpFileName),
-                Is.EqualTo(File.ReadAllBytes("../../../data/text-utf8.txt")));
-        } finally
-        {
-            File.Delete(tmpFileName);
-        }
+        File.Copy(Utf32File, TmpFileName, true);
+
+        Main(new[] { TmpFileName, "utf-32", "utf-8" });
+        That(File.ReadAllBytes(TmpFileName),
+            Is.EqualTo(File.ReadAllBytes(Utf8File)));
     }
 }
