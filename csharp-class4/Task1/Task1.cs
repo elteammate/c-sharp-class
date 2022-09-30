@@ -2,17 +2,10 @@
 
 namespace Task1;
 
-// Необходимо заменить на более подходящий тип (коллекцию), позволяющий
-// эффективно искать диапазон по заданному IP-адресу
 using IPRangesDatabase = ImmutableArray<Task1.IpRange>;
 
 public static class Task1
 {
-    /*
-    * Объекты этого класса создаются из строки, но хранят внутри помимо строки
-    * ещё и целочисленное значение соответствующего адреса. Например, для адреса
-     * 127.0.0.1 должно храниться число 1 + 0 * 2^8 + 0 * 2^16 + 127 * 2^24 = 2130706433.
-    */
     internal record IpV4Addr(string StrValue) : IComparable<IpV4Addr>
     {
         internal readonly uint IntValue = IpStr2Int(StrValue);
@@ -84,7 +77,7 @@ public static class Task1
 
         var size = givenList.Count;
 
-        // Calculating all ranges that are included in other ranges
+        // Getting all ranges that are included in other ranges
         var keep = new bool[size];
         var right = new IpV4Addr("0.0.0.0");
         for (var i = 0; i < size; i++)
